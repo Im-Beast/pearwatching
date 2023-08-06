@@ -25,7 +25,7 @@ const color = props.color ?? "primary";
 }
 
 .checkbox-shared {
-  --at-apply: "invisible relative w-7 h-7";
+  --at-apply: "invisible appearance-none relative w-7 h-7";
   --at-apply: "focus-visible:(outline-none)";
 
   /* ::before */
