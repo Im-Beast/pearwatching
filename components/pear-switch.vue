@@ -27,15 +27,15 @@ const color = props.color ?? "primary";
 }
 
 .switch-shared {
-  --at-apply: "invisible relative w-14 h-7";
+  --at-apply: "appearance-none relative w-14 h-7";
   --at-apply: "focus-visible:(outline-none)";
 
   /* ::before */
-  --at-apply: "before:(visible absolute content-[''] w-full h-full border-outset border-l-[0rem] rounded-md transition-colors duration-150 px-2 py-1)";
+  --at-apply: "before:(absolute content-[''] w-full h-full border-outset border-l-[0rem] rounded-md transition-colors duration-150 px-2 py-1)";
   --at-apply: "before:focus-visible:(duration-none outline outline-2 outline-emerald-500 outline-offset-2)";
 
   /* ::after */
-  --at-apply: "after:(visible absolute top-1/2 -translate-y-1/2 left-1 content-['']  transition-transform duration-125 ease-out i-mingcute-close-fill)";
+  --at-apply: "after:(absolute top-1/2 -translate-y-1/2 left-1 content-['']  transition-transform duration-125 ease-out i-mingcute-close-fill)";
 
   /* Make checking on different states feel more natural */
   --at-apply: "after:checked:(absolute translate-x-[calc(100%+0.35rem)] content-[''] i-mingcute-check-fill)";
