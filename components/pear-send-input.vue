@@ -17,7 +17,7 @@ const alternateColor = color === "primary" ? "secondary" : "primary";
   <div class="relative w-full">
     <PearTextInput :class="props.inputClass" :color="color" />
     <PearButton
-      class="absolute! right-0 border-b-0! border-r-2 active:(border-r-0)"
+      class="absolute! right-0 border-b-0! border-r-2 active:(border-r-0 bottom-0!)"
       :class="props.buttonClass"
       :color="alternateColor"
       :placeholder="props.placeholder"
