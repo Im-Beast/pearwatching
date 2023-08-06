@@ -25,17 +25,17 @@ const color = props.color ?? "primary";
 }
 
 .checkbox-shared {
-  --at-apply: "invisible appearance-none relative w-7 h-7";
+  --at-apply: "invisible appearance-none relative min-w-7 min-h-7";
   --at-apply: "focus-visible:(outline-none)";
 
   /* ::before */
-  --at-apply: "before:(visible absolute content-[''] w-full h-full border-b-2 rounded-md transition-colors duration-150 px-2 py-1)";
+  --at-apply: "before:(visible absolute content-[''] w-full h-full border-b-2 rounded-md transition-colors duration-150)";
   --at-apply: "before:focus-visible:(duration-none outline outline-2 outline-emerald-500 outline-offset-2)";
 
   /* Make checking on different states feel more natural */
-  --at-apply: "before:active:(border-b-0 -bottom-2px)";
-  --at-apply: "before:checked:(border-b-0 -bottom-2px)";
-  --at-apply: "before:checked:active:(border-b-2 bottom-0)";
+  --at-apply: "before:active:(border-b-0 h-[calc(100%-2px)] -bottom-1px)";
+  --at-apply: "before:checked:(border-b-0 h-[calc(100%-2px)] -bottom-1px)";
+  --at-apply: "before:checked:active:(border-b-2 h-full bottom-0)";
 
   /* ::after */
   --at-apply: "after:(visible absolute inset-1/2 -translate-1/2 content-[''] i-mingcute-close-fill)";
