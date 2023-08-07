@@ -29,9 +29,7 @@ defineExpose({ pearOption });
 
 <style scoped>
 .option-shared {
-  box-shadow: inset 0 0px 0px 3px rgb(0 0 0 / 0.2);
-
-  --at-apply: "relative appearance-none w-full px-2 py-1 rounded-md transition-content-colors duration-150";
+  --at-apply: "relative appearance-none w-full px-2 py-1 rounded-md transition-content-colors duration-150 ring ring-3 ring-inset ring-black/20";
   /* FIXME: Outline only on tab */
   --at-apply: "focus:(outline-none)";
   --at-apply: "focus-visible:(duration-none outline! outline-2 outline-emerald-500 outline-offset-2)";

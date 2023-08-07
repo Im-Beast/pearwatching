@@ -38,9 +38,7 @@ defineExpose({ pearSelect });
 
 <style scoped>
 .select-shared {
-  box-shadow: inset 0 0px 0px 3px rgb(0 0 0 / 0.2);
-
-  --at-apply: "appearance-none pointer-events-auto border-b-2 w-full pl-2 pr-6.5 py-1 rounded-md transition-content-colors duration-150";
+  --at-apply: "appearance-none pointer-events-auto border-b-2 w-full pl-2 pr-6.5 py-1 rounded-md transition-content-colors duration-150 ring ring-3 ring-inset ring-black/20";
   --at-apply: "active:(border-b-0 -bottom-2px)";
 
   /* FIXME: Outline only on tab */

@@ -27,7 +27,7 @@ defineExpose({ pearSwitch });
 
 <style scoped>
 .switch-shared::before {
-  box-shadow: inset 0 0px 0px 3px rgb(0 0 0 / 0.2);
+  --at-apply: "ring ring-3 ring-inset ring-black/20";
 }
 
 .switch-shared {
