@@ -10,6 +10,12 @@ import {
 export default defineConfig({
   rules: [
     ["image-pixelated", { "image-rendering": "pixelated" }],
+    ["transition-content-colors", {
+      "transition":
+        "color, background-color, text-decoration-color, fill, stroke",
+      "transition-timing-function": "cubic-bezier(0.4, 0, 0.2, 1)",
+      "transition-duration": "150ms",
+    }],
   ],
   presets: [
     presetUno(),
