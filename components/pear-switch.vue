@@ -6,10 +6,14 @@ const props = defineProps<{
 }>();
 
 const color = props.color ?? "primary";
+
+const pearSwitch = ref<HTMLInputElement>();
+defineExpose({ pearSwitch });
 </script>
 
 <template>
   <input
+    ref="pearSwitch"
     type="checkbox"
     class="switch-shared squish-bottom"
     :class="{

@@ -3,10 +3,14 @@ const props = defineProps<{
   color?: "primary" | "secondary";
   placeholder?: string;
 }>();
+
+const pearTextInput = ref<HTMLInputElement>();
+defineExpose({ pearTextInput });
 </script>
 
 <template>
   <input
+    ref="pearTextInput"
     type="text"
     :class="{
       'text-input-shared bg-green-300 hover:(bg-green-400) active:(bg-green-500)':

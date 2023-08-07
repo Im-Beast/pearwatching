@@ -4,10 +4,14 @@ const props = defineProps<{
 }>();
 
 const color = props.color ?? "primary";
+
+const pearCheckbox = ref<HTMLInputElement>();
+defineExpose({ pearCheckbox });
 </script>
 
 <template>
   <input
+    ref="pearCheckbox"
     type="checkbox"
     class="checkbox-shared squish-bottom"
     :class="{

@@ -11,6 +11,14 @@ defineSlots<{ button: any }>();
 
 const color = props.color ?? "primary";
 const alternateColor = color === "primary" ? "secondary" : "primary";
+
+const buttonRefs = ref<{ pearButton: HTMLButtonElement }>();
+const inputRefs = ref<{ pearTextInput: HTMLInputElement }>();
+
+defineExpose({
+  button: buttonRefs.value,
+  input: inputRefs.value,
+});
 </script>
 
 <template>
