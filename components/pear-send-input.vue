@@ -19,12 +19,34 @@ defineExpose({
   button: buttonRefs.value,
   input: inputRefs.value,
 });
+
+function keydown() {
+  const pearButton = buttonRefs.value?.pearButton;
+  if (!pearButton) return;
+
+  pearButton.classList.add("active-send-button");
+}
+
+function keyup() {
+  const pearButton = buttonRefs.value?.pearButton;
+  if (!pearButton) return;
+
+  pearButton.classList.remove("active-send-button");
+  pearButton.click();
+}
 </script>
 
 <template>
   <div class="relative w-full">
-    <PearTextInput :class="props.inputClass" :color="color" />
+    <PearTextInput
+      ref="inputRefs"
+      @keydown.enter="keydown"
+      @keyup.enter="keyup"
+      :class="props.inputClass"
+      :color="color"
+    />
     <PearButton
+      ref="buttonRefs"
       class="absolute! right-0 border-b-0! border-r-2 active:(border-r-0 bottom-0!)"
       :class="props.buttonClass"
       :color="alternateColor"
@@ -37,4 +59,8 @@ defineExpose({
   </div>
 </template>
 
-<style scoped></style>
+<style scoped>
+.active-send-button {
+  --at-apply: "border-r-0 bottom-0!";
+}
+</style>
