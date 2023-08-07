@@ -35,7 +35,7 @@ defineExpose({ pearSwitch });
   --at-apply: "focus-visible:(outline-none)";
 
   /* ::before */
-  --at-apply: "before:(absolute content-[''] w-full h-full border-outset border-l-[0rem] rounded-md transition-colors duration-150 px-2 py-1)";
+  --at-apply: "before:(absolute content-[''] w-full h-full border-outset border-l-[0rem] rounded-md transition-content-colors duration-150 px-2 py-1)";
   --at-apply: "before:focus-visible:(duration-none outline outline-2 outline-emerald-500 outline-offset-2)";
 
   /* ::after */

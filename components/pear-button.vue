@@ -28,7 +28,7 @@ defineExpose({ pearButton });
 .button-shared {
   box-shadow: inset 0 0px 0px 3px rgb(0 0 0 / 0.2);
 
-  --at-apply: "relative w-max h-max text-shadow-sm border-b-2 rounded-md transition-colors duration-150 px-2 py-1";
+  --at-apply: "relative w-max h-max text-shadow-sm border-b-2 rounded-md transition-content-colors duration-150 px-2 py-1";
   --at-apply: "focus-visible:(duration-none outline outline-2 outline-emerald-500 outline-offset-2)";
   --at-apply: "active:(border-b-0 -bottom-2px)";
 }
