@@ -1,7 +1,3 @@
-<script setup lang="ts">
-const a: Ref<string> = ref("hello");
-</script>
-
 <template>
   <main
     class="absolute flex flex-row gap-2 grainy-bg top-1/2 left-1/2 -translate-1/2 w-3/4 bg-dark-200 border-1 border-green-300 rounded-lg p-2"
@@ -50,8 +46,16 @@ const a: Ref<string> = ref("hello");
       <section class="flex flex-col">
         <h1>Select</h1>
         <section class="flex flex-wrap items-center gap-1">
-          <PearSelect>Hello</PearSelect>
-          <PearSelect color="secondary">Hello</PearSelect>
+          <PearSelect>
+            <PearOption value="dog">Dog</PearOption>
+            <PearOption value="cat">Cat</PearOption>
+            <PearOption value="hamster">Hamster</PearOption>
+          </PearSelect>
+          <PearSelect color="secondary">
+            <PearOption value="dog">Dog</PearOption>
+            <PearOption value="cat">Cat</PearOption>
+            <PearOption value="hamster">Hamster</PearOption>
+          </PearSelect>
         </section>
       </section>
 
