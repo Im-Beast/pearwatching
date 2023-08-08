@@ -16,7 +16,9 @@
       />
     </PearDockLink>
     <PearDockLink to="/components" title="Components" class="group">
-      <span class="i-tabler-puzzle group-[.current]:(i-tabler-puzzle-filled)" />
+      <span
+        class="i-mingcute-paint-2-line group-[.current]:(i-mingcute-paint-2-fill)"
+      />
     </PearDockLink>
   </PearDock>
 
