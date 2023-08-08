@@ -11,21 +11,3 @@ body {
   background-color: #000000;
   color: #ffffff;
 }
-
-body::before,
-.grainy-bg::before {
-  border-radius: inherit;
-
-  content: "";
-  position: fixed;
-
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-
-  z-index: -1;
-
-  background: url("~/assets/grain.svg#grain");
-  opacity: 10%;
-}
