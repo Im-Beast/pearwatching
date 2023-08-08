@@ -5,6 +5,13 @@ const props = defineProps<{
 
   inputClass?: string;
   buttonClass?: string;
+
+  modelValue?: string;
+}>();
+
+const emit = defineEmits<{
+  (event: "send", type: MouseEvent): void;
+  (event: "update:modelValue", target: HTMLInputElement): void;
 }>();
 
 defineSlots<{ button: any }>();
@@ -44,9 +51,12 @@ function keyup() {
       @keyup.enter="keyup"
       :class="props.inputClass"
       :color="color"
+      :value="modelValue"
+      @input="emit('update:modelValue', $event.target.value)"
     />
     <PearButton
       ref="buttonRefs"
+      @click="emit('send', $event)"
       class="absolute! right-0 border-b-0! border-r-2 active:(border-r-0 bottom-0!)"
       :class="props.buttonClass"
       :color="alternateColor"
