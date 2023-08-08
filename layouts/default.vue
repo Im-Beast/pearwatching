@@ -1,3 +1,10 @@
+<script setup>
+import { usePeerStore } from "~/stores/peer";
+
+const store = usePeerStore();
+store.setup();
+</script>
+
 <template>
   <PearDock color="primary">
     <PearDockLink to="/" title="Home" class="group">
