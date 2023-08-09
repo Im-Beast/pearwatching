@@ -1,7 +1,5 @@
 <template>
-  <main
-    class="absolute flex flex-row gap-2 grainy-bg top-1/2 left-1/2 -translate-1/2 w-3/4 bg-dark-200 border-1 border-green-300 rounded-lg p-2"
-  >
+  <PearWindow tag="main" class="w-full my-auto md:(w-3/4 mx-auto)">
     <section class="w-1/2">
       <section class="flex flex-col">
         <h1>Buttons</h1>
@@ -67,5 +65,5 @@
         </section>
       </section>
     </section>
-  </main>
+  </PearWindow>
 </template>
