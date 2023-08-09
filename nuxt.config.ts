@@ -3,7 +3,10 @@ export default defineNuxtConfig({
   devtools: { enabled: false },
   ssr: false,
   pages: true,
-  srcDir: "src/",
+  srcDir: "src",
+  app: {
+    rootTag: "body",
+  },
   components: [
     {
       path: "~/components",
