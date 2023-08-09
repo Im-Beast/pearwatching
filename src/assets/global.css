@@ -1,5 +1,13 @@
+@import url(./fonts.css);
+
 :root {
+  font-family: "Varela Round";
+  font-weight: 400;
   font-size: 24px;
+}
+
+.font-sniglet {
+  font-family: "Sniglet";
 }
 
 body {

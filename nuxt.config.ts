@@ -15,6 +15,17 @@ export default defineNuxtConfig({
   modules: [
     "@unocss/nuxt",
     "@pinia/nuxt",
+    ["@nuxtjs/google-fonts", {
+      download: true,
+      outputDir: "~/assets/",
+      stylePath: "fonts.css",
+      families: {
+        "Varela Round": true,
+        "Sniglet": {
+          wght: [400],
+        },
+      },
+    }],
   ],
   css: [
     // reset styles
