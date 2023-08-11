@@ -12,15 +12,20 @@ export default defineNuxtConfig({
       path: "~/components",
     },
   ],
+  googleFonts: {},
   modules: [
     "@unocss/nuxt",
     "@pinia/nuxt",
     ["@nuxtjs/google-fonts", {
       download: true,
-      outputDir: "~/assets/",
-      stylePath: "fonts.css",
+      fontsDir: "./",
+      fontsPath: "./fonts/",
+      outputDir: "~/assets/fonts",
+      stylePath: "../fonts.css",
       families: {
-        "Varela Round": true,
+        "Fredoka": {
+          wght: [300, 400, 500, 600, 700],
+        },
         "Sniglet": {
           wght: [400],
         },
