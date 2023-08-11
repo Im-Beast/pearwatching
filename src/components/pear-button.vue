@@ -1,8 +1,10 @@
 <script setup lang="ts">
 const props = defineProps<{
+  tag?: any;
   color?: "primary" | "secondary";
 }>();
 
+const tag = props.tag ?? "button";
 const color = props.color ?? "primary";
 
 const pearButton = ref<HTMLButtonElement>();
@@ -10,7 +12,8 @@ defineExpose({ pearButton });
 </script>
 
 <template>
-  <button
+  <component
+    :is="tag"
     ref="pearButton"
     class="button-shared"
     :class="{
@@ -21,12 +24,12 @@ defineExpose({ pearButton });
     }"
   >
     <slot />
-  </button>
+  </component>
 </template>
 
 <style scoped>
 .button-shared {
-  --at-apply: "relative w-max h-max text-shadow-sm border-b-2 rounded-md transition-content-colors duration-150 px-2 py-1 ring ring-3 ring-inset ring-black/20";
+  --at-apply: "relative w-max h-max text-shadow-sm border-b-2 rounded-md transition-content-colors duration-150 px-2 py-1 ring ring-3 ring-inset ring-black/20 cursor-pointer select-none";
   --at-apply: "focus-visible:(duration-none outline outline-2 outline-emerald-500 outline-offset-2)";
 
   /** ::active */
