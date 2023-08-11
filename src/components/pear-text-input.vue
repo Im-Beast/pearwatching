@@ -15,9 +15,9 @@ defineExpose({ pearTextInput });
     ref="pearTextInput"
     type="text"
     :class="{
-      'text-input-shared bg-green-300 hover:(bg-green-400) active:(bg-green-500)':
+      'text-input-shared text-green-900 bg-green-300 hover:(bg-green-400) active:(bg-green-500)':
         color !== 'secondary',
-      'text-input-shared bg-teal-300 hover:(bg-teal-400) active:(bg-teal-500)':
+      'text-input-shared text-teal-800 bg-teal-300 hover:(bg-teal-400) active:(bg-teal-500)':
         color === 'secondary',
     }"
   />
