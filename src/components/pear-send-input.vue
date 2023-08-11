@@ -55,15 +55,18 @@ function keyup() {
       @input="emit('update:modelValue', $event.target.value)"
     />
     <PearButton
+      aria-label="Send"
       ref="buttonRefs"
       @click="emit('send', $event)"
-      class="absolute! right-0 border-b-0! border-r-2 active:(border-r-0 bottom-0!)"
+      class="absolute! group right-0 border-b-0! border-r-2 active:(border-r-0 bottom-0!)"
       :class="props.buttonClass"
       :color="alternateColor"
       :placeholder="props.placeholder"
     >
       <slot name="button">
-        <span class="i-mingcute-send-plane-fill" />
+        <span
+          class="i-mingcute-send-plane-line group-active:i-mingcute-send-plane-fill group-[.active-send-button]:i-mingcute-send-plane-fill"
+        />
       </slot>
     </PearButton>
   </div>
