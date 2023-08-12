@@ -7,6 +7,8 @@ const props = defineProps<{
   buttonClass?: string;
 
   modelValue?: string;
+  value?: string;
+  readonly?: any;
 }>();
 
 const emit = defineEmits<{
@@ -47,11 +49,12 @@ function keyup() {
   <div class="relative w-full">
     <PearTextInput
       ref="inputRefs"
-      @keydown.enter="keydown"
-      @keyup.enter="keyup"
       :class="props.inputClass"
       :color="color"
-      :value="modelValue"
+      :value="modelValue ?? value"
+      :readonly="readonly"
+      @keydown.enter="keydown"
+      @keyup.enter="keyup"
       @input="emit('update:modelValue', $event.target.value)"
     />
     <PearButton
