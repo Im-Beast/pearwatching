@@ -15,10 +15,12 @@ const { color = "primary", tag = "div" } = props;
 <template>
   <component
     :is="tag"
-    class="rounded-md bg-dark-200 border-3 ring ring-3 ring-inset ring-black/20"
+    class="relative rounded-md bg-dark-200 border-3 ring ring-3 ring-inset ring-black/20"
     :class="{
       'border-green-300': color === 'primary',
       'border-teal-300': color === 'secondary',
+      'border-0! before:(content-[\'\'] bg-gradient-to-r from-green-300 to-teal-300 -z-1 rounded-md absolute -top-3px -left-3px w-[calc(100%+6px)] h-[calc(100%+6px)] bg-red-300 )':
+        color === 'gradient',
       'p-2': !$slots.titlebar,
     }"
   >
