@@ -15,7 +15,7 @@ const pearTextInput = ref<HTMLInputElement>();
 defineExpose({ pearTextInput });
 </script>
 
-<script>
+<script lang="ts">
 // This is required to fix $event.target!.value type error
 declare global {
   interface EventTarget {
