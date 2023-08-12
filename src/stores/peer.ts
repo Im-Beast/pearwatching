@@ -1,9 +1,5 @@
-import exp from "constants";
 import Peer, { DataConnection } from "peerjs";
 import { defineStore } from "pinia";
-
-export function modifyPeer() {
-}
 
 interface OptionsStoreSchema {
   peer: Peer | null;
@@ -14,7 +10,7 @@ interface OptionsStoreSchema {
 
 interface ActionsStoreSchema {
   setup(): void;
-  connect(id: string): void;
+  connect(id: string): Promise<DataConnection>;
 }
 
 export const usePeerStore = defineStore<
@@ -39,38 +35,44 @@ export const usePeerStore = defineStore<
         this.id = peer.id;
       });
     },
-    connect(id: string) {
-      const { peer } = this;
-      if (!peer) throw new Error("Peer isn't created");
+    connect(id: string): Promise<DataConnection> {
+      return new Promise((resolve, reject) => {
+        const { peer } = this;
+        if (!peer) throw new Error("Peer isn't created");
 
-      peer.removeAllListeners();
-      const connection = peer.connect(id, {
-        reliable: true,
-      });
-
-      this.connections.push(connection);
-
-      connection.on("open", () => {
-        console.log("Connected!");
-      });
-
-      peer.on("open", () => {
-        this.id = peer.id;
-      });
-
-      peer.on("connection", (connection) => {
-        connection.on("data", (data) => {
-          this.messages.push(data);
+        peer.removeAllListeners();
+        const connection = peer.connect(id, {
+          reliable: true,
         });
-      });
 
-      peer.on("disconnected", () => {
-        // Connection failed, try to recconect
-        peer.reconnect();
-      });
+        this.connections.push(connection);
 
-      peer.on("error", (error) => {
-        throw new Error("Connection errored", error);
+        connection.on("open", () => {
+          resolve(connection);
+          console.log("Connected!");
+        });
+
+        peer.on("open", () => {
+          this.id = peer.id;
+        });
+
+        peer.on("connection", (connection) => {
+          connection.on("data", (data) => {
+            this.messages.push(data);
+          });
+        });
+
+        peer.on("disconnected", () => {
+          // Connection failed, try to recconect
+          peer.reconnect();
+        });
+
+        peer.on("error", (error) => {
+          console.log("err", error);
+
+          reject();
+          throw new Error("Connection errored", error);
+        });
       });
     },
   },
