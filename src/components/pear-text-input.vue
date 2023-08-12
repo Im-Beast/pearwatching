@@ -4,10 +4,24 @@ const props = defineProps<{
   placeholder?: string;
 }>();
 
+const emit = defineEmits<{
+  (event: "send", type: MouseEvent): void;
+  (event: "update:modelValue", target: HTMLInputElement): void;
+}>();
+
 const color = props.color ?? "primary";
 
 const pearTextInput = ref<HTMLInputElement>();
 defineExpose({ pearTextInput });
+</script>
+
+<script>
+// This is required to fix $event.target!.value type error
+declare global {
+  interface EventTarget {
+    value: HTMLInputElement;
+  }
+}
 </script>
 
 <template>
@@ -20,6 +34,7 @@ defineExpose({ pearTextInput });
       'text-input-shared text-teal-800 bg-teal-300 hover:(bg-teal-400) active:(bg-teal-500)':
         color === 'secondary',
     }"
+    @input="emit('update:modelValue', $event.target!.value)"
   />
 </template>
 
