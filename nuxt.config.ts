@@ -16,6 +16,7 @@ export default defineNuxtConfig({
   modules: [
     "@unocss/nuxt",
     "@pinia/nuxt",
+    "@vueuse/nuxt",
     ["@nuxtjs/google-fonts", {
       download: true,
       fontsDir: "./",
