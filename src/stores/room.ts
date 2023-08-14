@@ -3,8 +3,10 @@ import { defineStore } from "pinia";
 
 export interface RoomUser {
   id: string;
-  username: string;
+  initialized: boolean;
+
   color: string;
+  username: string;
 }
 
 interface OptionsStoreSchema {
@@ -15,8 +17,6 @@ interface OptionsStoreSchema {
 }
 
 interface ActionsStoreSchema {
-  setup(): void;
-  connect(id: string): void;
 }
 
 export const useRoomStore = defineStore<

@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { usePeerStore } from "~/stores/peer";
+import { usePeerStore, type Message } from "~/stores/peer";
 import { useRoomStore, type RoomUser } from "~/stores/room";
 
 const roomStore = useRoomStore();
@@ -18,6 +18,7 @@ peerStore.peer!.on("connection", (connection) => {
 
   const user: RoomUser = reactive({
     id: connection.peer,
+    initialized: false,
     color: "",
     username: "",
   });
@@ -33,13 +34,12 @@ peerStore.peer!.on("connection", (connection) => {
   connection.on("data", (data) => {
     try {
       if (typeof data !== "object") throw "what is this";
-      const message = data as any;
+      const message = data as Message;
 
-      if (message.type === "info" && user.color === "") {
-        console.log("SET STATS");
+      if (message.type === "init" && user.initialized === false) {
+        user.initialized = true;
         user.color = message.color;
         user.username = message.username;
-        roomStore.users.splice(0, 0);
       }
     } catch {
       // TODO: do soemthing
@@ -80,10 +80,22 @@ const { copy } = useClipboard({});
 
     <label>
       People connected:
-      <ul>
-        <li v-for="user in roomStore.users" :key="user.id">
-          <span class="i-mingcute-user-2-fill" :style="{ color: user.color }" />
+      <ul class="flex flex-col gap-1">
+        <li
+          v-for="user in roomStore.users"
+          :key="user.id"
+          class="flex items-center p-0.5 border-3 rounded-md border-green-300"
+        >
+          <span
+            class="i-mingcute-user-2-fill mr-1"
+            :style="{ color: user.color }"
+          />
+
           <span>{{ user.username }}</span>
+
+          <PearButton class="px-1! py-0!">
+            <span class="i-mingcute-delete-2-line"></span>
+          </PearButton>
         </li>
       </ul>
     </label>

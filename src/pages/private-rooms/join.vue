@@ -1,25 +1,30 @@
 <script setup lang="ts">
-import { usePeerStore } from "~/stores/peer";
+import { storeToRefs } from "pinia";
+import { usePeerStore, ConnectionStatus } from "~/stores/peer";
 import { useRoomStore } from "~/stores/room";
 
 const roomStore = useRoomStore();
-const peerStore = usePeerStore();
+const { id } = storeToRefs(roomStore);
 
-const store = peerStore;
+const peerStore = usePeerStore();
+const { connectionStatus } = storeToRefs(peerStore);
 
 const username = ref("");
-const color = `#${(~~(Math.random() * 0xffffff)).toString(16)}`;
-const status = ref("Idle");
+const color = `rgb(${~~(Math.random() * 255)}, ${~~(Math.random() * 255)}, ${~~(
+  Math.random() * 255
+)})`;
 
-async function connect() {
-  status.value = "Connecting...";
-  const connection = await store.connect(roomStore.id!);
-  status.value = "Connected";
+async function connectToPeer() {
+  if (connectionStatus.value === ConnectionStatus.CONNECTED) {
+    return;
+  }
 
-  connection.send({
-    type: "info",
+  const connection = await peerStore.connect(id.value!);
+
+  peerStore.sendMessage(connection, {
+    type: "init",
     username: username.value,
-    color: color,
+    color,
   });
 }
 </script>
@@ -31,7 +36,7 @@ async function connect() {
     class="w-full my-auto md:(min-w-1/3 w-max mx-auto)"
   >
     <template #titlebar>
-      <h1 class="font-semibold text-2xl">Join room ({{ status }})</h1>
+      <h1 class="font-semibold text-2xl">Join room ({{ connectionStatus }})</h1>
     </template>
 
     <label>
@@ -52,8 +57,8 @@ async function connect() {
       <PearSendInput
         type="text"
         color="secondary"
-        @change="roomStore.id = $event.target.value"
-        @send="connect()"
+        @change="id = $event.target.value"
+        @send="connectToPeer()"
       >
         <template #button>
           <span
