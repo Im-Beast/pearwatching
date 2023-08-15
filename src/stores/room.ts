@@ -1,5 +1,6 @@
 import { DataConnection } from "peerjs";
 import { defineStore } from "pinia";
+import { generateRandomUsername } from "../../utils/name-generator";
 
 export interface RoomUser {
   id: string;
@@ -11,9 +12,12 @@ export interface RoomUser {
 
 interface OptionsStoreSchema {
   id: string | null;
-  users: RoomUser[];
-  userByConnection: WeakMap<DataConnection, RoomUser>;
-  userByPeerId: Map<string, RoomUser>;
+  username: string;
+  users: {
+    all: Set<RoomUser>;
+    byConnection: WeakMap<DataConnection, RoomUser>;
+    byPeerId: Map<string, RoomUser>;
+  };
 }
 
 interface ActionsStoreSchema {
@@ -27,8 +31,11 @@ export const useRoomStore = defineStore<
 >("room", {
   state: () => ({
     id: null,
-    users: [],
-    userByPeerId: new Map(),
-    userByConnection: new WeakMap(),
+    username: generateRandomUsername(),
+    users: reactive({
+      all: new Set(),
+      byPeerId: new Map(),
+      byConnection: new WeakMap(),
+    }),
   }),
 });

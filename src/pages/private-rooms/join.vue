@@ -1,15 +1,19 @@
 <script setup lang="ts">
 import { storeToRefs } from "pinia";
-import { usePeerStore, ConnectionStatus } from "~/stores/peer";
+import {
+  usePeerStore,
+  ConnectionStatus,
+  MessageType,
+  isValidMessage,
+} from "~/stores/peer";
 import { useRoomStore } from "~/stores/room";
 
 const roomStore = useRoomStore();
-const { id } = storeToRefs(roomStore);
+const { id, username } = storeToRefs(roomStore);
 
 const peerStore = usePeerStore();
 const { connectionStatus } = storeToRefs(peerStore);
 
-const username = ref("");
 const color = `rgb(${~~(Math.random() * 255)}, ${~~(Math.random() * 255)}, ${~~(
   Math.random() * 255
 )})`;
@@ -21,8 +25,24 @@ async function connectToPeer() {
 
   const connection = await peerStore.connect(id.value!);
 
+  connection.on("close", () => {
+    connectionStatus.value = ConnectionStatus.DISCONNECTED;
+  });
+
+  connection.on("data", (message) => {
+    console.log(message);
+    if (!isValidMessage(message)) return;
+
+    switch (message.type) {
+      case MessageType.CHAT:
+        break;
+      case MessageType.SYNC:
+        break;
+    }
+  });
+
   peerStore.sendMessage(connection, {
-    type: "init",
+    type: MessageType.INIT,
     username: username.value,
     color,
   });
@@ -41,7 +61,7 @@ async function connectToPeer() {
 
     <label>
       Username:
-      <PearTextInput color="secondary" v-model="username" />
+      <PearTextInput color="secondary" :value="username" v-model="username" />
     </label>
 
     <label>

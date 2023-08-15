@@ -1,6 +1,12 @@
 import Peer, { DataConnection } from "peerjs";
 import { defineStore } from "pinia";
 
+export enum MessageType {
+  CHAT = "chat",
+  INIT = "init",
+  SYNC = "sync",
+}
+
 export enum ConnectionStatus {
   IDLE = "idle",
   CONNECTING = "connecting",
@@ -9,18 +15,79 @@ export enum ConnectionStatus {
   FAILED = "failed",
 }
 
-export interface ChatMessage {
-  type: "chat";
-  message: string;
+export interface BaseMessage {
+  type: MessageType;
 }
 
-export interface InitMessage {
-  type: "init";
+export interface ChatMessage extends BaseMessage {
+  type: MessageType.CHAT;
+  content: string;
+}
+
+export interface InitMessage extends BaseMessage {
+  type: MessageType.INIT;
   username: string;
   color: string;
 }
 
-export type Message = ChatMessage | InitMessage;
+export interface SyncMessage extends BaseMessage {
+  type: MessageType.SYNC;
+  timestamp: number;
+  videoTime: number;
+}
+
+export type Message = ChatMessage | SyncMessage | InitMessage;
+
+export function isValidMessage(data: unknown): data is Message {
+  if (!data || typeof data !== "object") {
+    return false;
+  }
+
+  if (
+    !("type" in data) ||
+    typeof data.type !== "string" ||
+    !(data.type.toUpperCase() in MessageType)
+  ) {
+    return false;
+  }
+
+  switch (data.type) {
+    case MessageType.CHAT:
+      {
+        const message = data as ChatMessage;
+
+        if (typeof message.content !== "string") return false;
+        else if (Object.keys(data).length !== 1) return false;
+      }
+      break;
+    case MessageType.INIT:
+      {
+        const message = data as InitMessage;
+
+        if (
+          typeof message.color !== "string" ||
+          typeof message.username !== "string"
+        ) return false;
+        else if (Object.keys(data).length !== 3) return false;
+      }
+      break;
+    case MessageType.SYNC:
+      {
+        const message = data as SyncMessage;
+
+        if (
+          typeof message.timestamp !== "number" ||
+          typeof message.videoTime !== "number"
+        ) return false;
+        else if (Object.keys(data).length !== 3) return false;
+      }
+      break;
+    default:
+      return false;
+  }
+
+  return true;
+}
 
 interface OptionsStoreSchema {
   peer: Peer | null;

@@ -1,9 +1,20 @@
 <script setup lang="ts">
-import { usePeerStore, type Message } from "~/stores/peer";
+import { storeToRefs } from "pinia";
+import {
+  usePeerStore,
+  isValidMessage,
+  MessageType,
+  type Message,
+} from "~/stores/peer";
 import { useRoomStore, type RoomUser } from "~/stores/room";
 
 const roomStore = useRoomStore();
+const { users } = roomStore;
+const { username } = storeToRefs(roomStore);
+
 const peerStore = usePeerStore();
+
+const selectedUsername = ref(false);
 
 roomStore.id = peerStore.id;
 peerStore.peer!.on("open", () => {
@@ -11,10 +22,10 @@ peerStore.peer!.on("open", () => {
 });
 
 peerStore.peer!.on("connection", (connection) => {
-  console.log(connection);
-  if (roomStore.userByPeerId.has(connection.peer)) return;
-
-  console.log("Connection created");
+  if (users.byPeerId.has(connection.peer)) {
+    // This connection is already active?
+    return;
+  }
 
   const user: RoomUser = reactive({
     id: connection.peer,
@@ -23,29 +34,28 @@ peerStore.peer!.on("connection", (connection) => {
     username: "",
   });
 
-  roomStore.users.push(user);
-  roomStore.userByConnection.set(connection, user);
-  roomStore.userByPeerId.set(connection.peer, user);
+  users.all.add(user);
+  users.byConnection.set(connection, user);
+  users.byPeerId.set(connection.peer, user);
 
-  connection.on("open", () => {
-    console.log("It opened!");
+  connection.on("close", () => {
+    users.all.delete(user);
+    users.byConnection.delete(connection);
+    users.byPeerId.delete(connection.peer);
   });
 
-  connection.on("data", (data) => {
-    try {
-      if (typeof data !== "object") throw "what is this";
-      const message = data as Message;
+  connection.on("data", (message) => {
+    if (!isValidMessage(message)) return;
 
-      if (message.type === "init" && user.initialized === false) {
+    switch (message.type) {
+      case MessageType.INIT:
         user.initialized = true;
-        user.color = message.color;
         user.username = message.username;
-      }
-    } catch {
-      // TODO: do soemthing
+        user.color = message.color;
+        break;
+      case MessageType.CHAT:
+        break;
     }
-
-    console.log("data!", data);
   });
 });
 
@@ -63,6 +73,29 @@ const { copy } = useClipboard({});
     </template>
 
     <label>
+      Username:
+      <PearSendInput
+        color="primary"
+        class="w-[calc(100%+10rem)]"
+        v-model="username"
+        :readonly="selectedUsername"
+        :value="username"
+        @send="selectedUsername = true"
+        :disabled="selectedUsername"
+      >
+        <template #button>
+          <span
+            :class="{
+              'i-mingcute-user-lock-line': selectedUsername,
+              'i-mingcute-user-follow-2-line active:i-mingcute-user-follow-2-fill [&.active]:i-mingcute-user-follow-2-fill':
+                !selectedUsername,
+            }"
+          ></span>
+        </template>
+      </PearSendInput>
+    </label>
+
+    <label v-if="selectedUsername">
       Send this code to your friends:
       <PearSendInput
         readonly
@@ -78,11 +111,11 @@ const { copy } = useClipboard({});
       </PearSendInput>
     </label>
 
-    <label>
+    <div v-if="selectedUsername">
       People connected:
       <ul class="flex flex-col gap-1">
         <li
-          v-for="user in roomStore.users"
+          v-for="user in users.all"
           :key="user.id"
           class="flex items-center p-0.5 border-3 rounded-md border-green-300"
         >
@@ -93,11 +126,11 @@ const { copy } = useClipboard({});
 
           <span>{{ user.username }}</span>
 
-          <PearButton class="px-1! py-0!">
+          <PearButton class="px-1! py-0! ml-auto">
             <span class="i-mingcute-delete-2-line"></span>
           </PearButton>
         </li>
       </ul>
-    </label>
+    </div>
   </PearWindow>
 </template>
