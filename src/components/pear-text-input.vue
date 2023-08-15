@@ -1,7 +1,6 @@
 <script setup lang="ts">
 const props = defineProps<{
   color?: "primary" | "secondary";
-  placeholder?: string;
 }>();
 
 const emit = defineEmits<{
@@ -44,5 +43,10 @@ declare global {
   /* FIXME: Outline only on tab */
   --at-apply: "focus:(outline-none)";
   --at-apply: "focus-visible:(duration-none outline! outline-2 outline-emerald-500 outline-offset-2)";
+
+  /* TODO: placeholder and invalid colorschemes for everything */
+  --at-apply: "placeholder:(text-stone-500)";
+
+  --at-apply: "disabled:(bg-stone-400)";
 }
 </style>
