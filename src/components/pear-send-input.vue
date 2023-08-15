@@ -3,6 +3,8 @@ const props = defineProps<{
   color?: "primary" | "secondary";
   placeholder?: string;
 
+  disabled?: boolean;
+
   inputClass?: string;
   buttonClass?: string;
 
@@ -56,19 +58,21 @@ function keyup() {
       @keydown.enter="keydown"
       @keyup.enter="keyup"
       @input="emit('update:modelValue', $event.target.value)"
+      :disabled="disabled"
     />
     <PearButton
       aria-label="Send"
       ref="buttonRefs"
-      @click="emit('send', $event)"
+      @click="!disabled && emit('send', $event)"
       class="absolute! group right-0 border-b-0! border-r-2 active:(border-r-0 bottom-0!)"
       :class="props.buttonClass"
       :color="alternateColor"
       :placeholder="props.placeholder"
+      :disabled="disabled"
     >
       <slot name="button">
         <span
-          class="i-mingcute-send-plane-line group-active:i-mingcute-send-plane-fill group-[.active-send-button]:i-mingcute-send-plane-fill"
+          class="i-mingcute-send-plane-line disabled group-active:i-mingcute-send-plane-fill group-[.active-send-button]:i-mingcute-send-plane-fill"
         />
       </slot>
     </PearButton>
@@ -76,7 +80,8 @@ function keyup() {
 </template>
 
 <style scoped>
-.active-send-button {
+.active-send-button,
+:disabled {
   --at-apply: "border-r-0 bottom-0!";
 }
 </style>
