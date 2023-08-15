@@ -35,6 +35,8 @@ defineExpose({ pearButton });
   /** ::active */
   --at-apply: "active:(border-b-0 -bottom-2px)";
 
+  --at-apply: "disabled:(border-b-0 -bottom-2px bg-stone-400)";
+
   /* TODO: add disabled state for every component so they're unclickable and gray */
 }
 </style>
