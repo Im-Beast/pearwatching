@@ -13,7 +13,7 @@ defineExpose({ pearCheckbox });
   <input
     ref="pearCheckbox"
     type="checkbox"
-    class="checkbox-shared squish-bottom"
+    class="checkbox-shared"
     :class="{
       'text-green-900 before:(bg-green-300 border-green-200 hover:(bg-green-400) active:(bg-green-500!) checked:(bg-green-500))':
         color === 'primary',
