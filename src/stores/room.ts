@@ -1,6 +1,5 @@
 import { DataConnection } from "peerjs";
-import { defineStore } from "pinia";
-import { generateRandomUsername } from "../../utils/name-generator";
+import { acceptHMRUpdate, defineStore } from "pinia";
 
 export interface RoomUser {
   id: string;
@@ -12,7 +11,7 @@ export interface RoomUser {
 
 interface OptionsStoreSchema {
   id: string | null;
-  username: string;
+  username: string | null;
   users: {
     all: Set<RoomUser>;
     byConnection: WeakMap<DataConnection, RoomUser>;
@@ -31,7 +30,7 @@ export const useRoomStore = defineStore<
 >("room", {
   state: () => ({
     id: null,
-    username: generateRandomUsername(),
+    username: null,
     users: reactive({
       all: new Set(),
       byPeerId: new Map(),
@@ -39,3 +38,7 @@ export const useRoomStore = defineStore<
     }),
   }),
 });
+
+if (import.meta.hot) {
+  import.meta.hot.accept(acceptHMRUpdate(useRoomStore, import.meta.hot));
+}

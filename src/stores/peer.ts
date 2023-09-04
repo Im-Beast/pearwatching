@@ -1,5 +1,5 @@
 import Peer, { DataConnection } from "peerjs";
-import { defineStore } from "pinia";
+import { acceptHMRUpdate, defineStore } from "pinia";
 
 export enum MessageType {
   CHAT = "chat",
@@ -186,3 +186,7 @@ export const usePeerStore = defineStore<
     },
   },
 });
+
+if (import.meta.hot) {
+  import.meta.hot.accept(acceptHMRUpdate(usePeerStore, import.meta.hot));
+}
