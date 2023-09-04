@@ -33,7 +33,7 @@ defineExpose({ pearButton });
   --at-apply: "focus-visible:(duration-none outline outline-2 outline-emerald-500 outline-offset-2)";
 
   /** ::active */
-  --at-apply: "active:(border-b-0 -bottom-2px)";
+  --at-apply: "active:(border-b-0 -bottom-2px border-t-transparent border-t-2px)";
 
   --at-apply: "disabled:(border-b-0 -bottom-2px bg-stone-400)";
 
