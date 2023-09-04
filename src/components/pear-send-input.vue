@@ -64,7 +64,7 @@ function keyup() {
       aria-label="Send"
       ref="buttonRefs"
       @click="!disabled && emit('send', $event)"
-      class="absolute! group right-0 border-b-0! border-r-2 active:(border-r-0 bottom-0!)"
+      class="absolute! group right-0 border-y-0! border-r-2 active:(border-r-0 bottom-0!)"
       :class="props.buttonClass"
       :color="alternateColor"
       :placeholder="props.placeholder"
