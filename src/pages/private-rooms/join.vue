@@ -11,6 +11,8 @@ import { useRoomStore } from "~/stores/room";
 const roomStore = useRoomStore();
 const { id, username } = storeToRefs(roomStore);
 
+username.value ??= generateRandomUsername();
+
 const peerStore = usePeerStore();
 const { connectionStatus } = storeToRefs(peerStore);
 
@@ -43,7 +45,7 @@ async function connectToPeer() {
 
   peerStore.sendMessage(connection, {
     type: MessageType.INIT,
-    username: username.value,
+    username: username.value!,
     color,
   });
 }
