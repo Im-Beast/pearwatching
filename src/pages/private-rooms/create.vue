@@ -156,7 +156,7 @@ const { copy } = useClipboard();
       v-if="selectedUsername"
       class="mt-2 flex ml-auto"
       color="primary"
-      >Create</PearButton
-    >
+      >Create
+    </PearButton>
   </PearWindow>
 </template>

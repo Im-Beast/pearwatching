@@ -24,3 +24,6 @@ logs
 
 # Manually marked files
 ~*
+
+# Big video files
+/src/public/videos/*
