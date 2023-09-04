@@ -45,7 +45,7 @@ declare global {
   --at-apply: "focus-visible:(duration-none outline! outline-2 outline-emerald-500 outline-offset-2)";
 
   /* TODO: placeholder and invalid colorschemes for everything */
-  --at-apply: "placeholder:(text-stone-500)";
+  --at-apply: "placeholder:(text-stone-700)";
 
   --at-apply: "disabled:(bg-stone-400)";
 }
