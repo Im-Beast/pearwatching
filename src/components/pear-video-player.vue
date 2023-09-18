@@ -1,6 +1,12 @@
 <script setup lang="ts">
 import { useTimeoutFn } from "@vueuse/core";
 
+const props = defineProps<{
+  videoClass?: string;
+}>();
+
+const videoClass = props.videoClass ?? "";
+
 const src = ref("/videos/Big-Buck-Bunny-1440p.webm");
 const playing = ref(false);
 const showOverlay = ref(false);
@@ -70,11 +76,8 @@ function showPauseOverlay(event: PointerEvent) {
     event.target instanceof HTMLButtonElement ||
     event.target instanceof HTMLInputElement
   ) {
-    console.log("hi");
     return;
   }
-
-  console.log(event);
 
   showOverlay.value = true;
   hideOverlayTimeout.stop();
@@ -91,7 +94,7 @@ function hidePauseOverlay() {
   <div
     ref="videoContainerRef"
     id="video-container"
-    class="relative w-full h-full flex justify-center items-start bg-red-300"
+    class="relative w-max h-max flex justify-center items-start bg-green-300"
     :class="{
       'cursor-none': playing && !showOverlay,
     }"
@@ -126,7 +129,8 @@ function hidePauseOverlay() {
 
       <video
         ref="videoPlayerRef"
-        class="w-full! h-auto! max-h-100vh pointer-events-none select-none"
+        class="w-full! h-auto max-h-100vh pointer-events-none select-none"
+        :class="videoClass"
         :src="src"
       />
 
