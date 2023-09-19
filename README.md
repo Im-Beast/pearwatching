@@ -1,63 +1,34 @@
-# Nuxt 3 Minimal Starter
+# 🍐 PearWatching
 
-Look at the [Nuxt 3 documentation](https://nuxt.com/docs/getting-started/introduction) to learn more.
+PearWatching is a decentralized platform for watching videos together with your
+peers. It allows users to take full control of what and with whom they watch.
+It’s meant to be a all in one solution, where users don’t need to be spread on
+different platforms to enjoy content together. It doesn’t have a concept of
+accounts, instead every user is anonymous, and they can specify their identity
+while joining a room.
 
-## Setup
+It's meant to be an FOSS, e2e encrypted P2P alternative to
+Metastream/Watch2Gether without need for browser extension by leveraging latest
+Web API's, such as WebRTC.
 
-Make sure to install the dependencies:
+## 🚧 Project state
 
-```bash
-# npm
-npm install
+This project is currently under construction. A lot of things are messy and it's
+basically prototyping to find out what works and what does not. Do not expect it
+to work **yet**.
 
-# pnpm
-pnpm install
+## 🤝 Contributing
 
-# yarn
-yarn install
-```
+**Tui** is open for any contributions.
+<br /> If you feel like you can enhance this project - please open an issue
+and/or pull request.
+<br /> Code should be well document and easy to follow what's going on.
 
-## Development Server
+This project follows
+[conventional commits](https://www.conventionalcommits.org/en/v1.0.0/) spec.
+<br /> If your pull request's code can be hard to understand, please add
+comments to it.
 
-Start the development server on `http://localhost:3000`:
+## 📝 Licensing
 
-```bash
-# npm
-npm run dev
-
-# pnpm
-pnpm run dev
-
-# yarn
-yarn dev
-```
-
-## Production
-
-Build the application for production:
-
-```bash
-# npm
-npm run build
-
-# pnpm
-pnpm run build
-
-# yarn
-yarn build
-```
-
-Locally preview production build:
-
-```bash
-# npm
-npm run preview
-
-# pnpm
-pnpm run preview
-
-# yarn
-yarn preview
-```
-
-Check out the [deployment documentation](https://nuxt.com/docs/getting-started/deployment) for more information.
+This project is available under **MIT** License conditions.
