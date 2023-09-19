@@ -2,6 +2,7 @@
 import { storeToRefs } from "pinia";
 import { useTimeoutFn } from "@vueuse/core";
 import { useDockStore } from "~/stores/dock";
+import { PearDockLinkInfo } from "./pear-dock-link.vue";
 
 const props = defineProps<{
   videoClass?: string;
@@ -93,10 +94,25 @@ function hidePauseOverlay() {
 
 //#region move dock to bar
 const dockStore = useDockStore();
-const { teleport } = storeToRefs(dockStore);
+const { teleport, links } = storeToRefs(dockStore);
 const dockPositionRef = ref<HTMLElement>();
+
+const watchDockLink: PearDockLinkInfo = {
+  title: "Watch",
+  to: "/private-rooms/watch",
+  icon: {
+    base: "i-mingcute-tv-2-line",
+    current: "i-mingcute-tv-2-fill",
+  },
+};
+
 onMounted(() => {
   teleport.value = dockPositionRef.value;
+  for (const link of links.value) {
+    if (link.title === "Watch") return;
+  }
+  // TODO: Remove this when user leaves the room
+  dockStore.addDockLink(watchDockLink);
 });
 
 onUnmounted(() => {
