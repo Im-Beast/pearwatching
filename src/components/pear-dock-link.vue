@@ -1,14 +1,19 @@
 <script setup lang="ts">
 const props = defineProps<{
   color?: "primary" | "secondary";
-  to: string;
-  title: string;
+  info: PearDockLinkInfo;
 }>();
 
-const route = useRoute();
+export interface PearDockLinkInfo {
+  to: string;
+  title: string;
+  icon: {
+    base: string;
+    current: string;
+  };
+}
 
 const instance = getCurrentInstance();
-
 const color = props.color ?? instance?.parent?.props?.color ?? "primary";
 
 const pearDockLink = ref<HTMLAnchorElement>();
@@ -19,15 +24,13 @@ defineExpose({ pearDockLink });
   <NuxtLink
     ref="pearDockLink"
     class="dock-link-shared"
-    :to="props.to"
-    :title="props.title"
+    :to="props.info.to"
+    :title="props.info.title"
     :class="{
       'text-green-900 bg-green-300 border-green-200 hover:(bg-green-400) active:(bg-green-500) [&.current]:(bg-green-400!) before:(border-green-900) after:(border-green-900 bg-green-300)':
         color === 'primary',
       'text-teal-800 bg-teal-300 border-teal-200 hover:(bg-teal-400) active:(bg-teal-500) [&.current]:(bg-teal-400!) before:(border-teal-900) after:(border-teal-900 bg-teal-300)':
         color === 'secondary',
-
-      current: props.to === route.path,
     }"
   >
     <slot />

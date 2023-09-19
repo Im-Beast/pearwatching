@@ -1,5 +1,7 @@
 <script setup lang="ts">
+import { storeToRefs } from "pinia";
 import { useTimeoutFn } from "@vueuse/core";
+import { useDockStore } from "~/stores/dock";
 
 const props = defineProps<{
   videoClass?: string;
@@ -88,6 +90,19 @@ function hidePauseOverlay() {
   showOverlay.value = false;
 }
 //#endregion
+
+//#region move dock to bar
+const dockStore = useDockStore();
+const { teleport } = storeToRefs(dockStore);
+const dockPositionRef = ref<HTMLElement>();
+onMounted(() => {
+  teleport.value = dockPositionRef.value;
+});
+
+onUnmounted(() => {
+  teleport.value = null;
+});
+//#endregion
 </script>
 
 <template>
@@ -129,7 +144,7 @@ function hidePauseOverlay() {
 
       <video
         ref="videoPlayerRef"
-        class="w-full! h-auto max-h-100vh pointer-events-none select-none"
+        class="w-full! h-auto max-h-100vh max-w-[calc(100vw-10px)] pointer-events-none select-none"
         :class="videoClass"
         :src="src"
       />
@@ -166,6 +181,9 @@ function hidePauseOverlay() {
             />
           </PearVideoPlayerButton>
         </div>
+
+        <!-- dock position -->
+        <div ref="dockPositionRef"></div>
 
         <!-- right buttons -->
         <div class="flex gap-1 items-center">

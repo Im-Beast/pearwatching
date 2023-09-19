@@ -8,6 +8,18 @@ import {
 } from "unocss";
 
 export default defineConfig({
+  content: {
+    pipeline: {
+      include: [
+        // the default
+        /\.(ts|js|vue|svelte|[jt]sx|mdx?|astro|elm|php|phtml|html)($|\?)/,
+      ],
+      exclude: [
+        "**/node_modules/**",
+        "**/.nuxt/**",
+      ],
+    },
+  },
   rules: [
     ["image-pixelated", { "image-rendering": "pixelated" }],
     ["transition-content-colors", {

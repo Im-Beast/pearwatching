@@ -6,26 +6,16 @@
 
 import { storeToRefs } from "pinia";
 import { useRoomStore } from "~/stores/room";
-import { useDockStore } from "~/stores/dock";
-
-const dockStore = useDockStore();
-const { teleport } = storeToRefs(dockStore);
 
 const roomStore = useRoomStore();
 const { id } = storeToRefs(roomStore);
-
-const videoColumn = ref<HTMLDivElement>();
-
-onMounted(() => {
-  teleport.value = videoColumn.value;
-});
 </script>
 
 <template>
-  <section class="flex justify-center w-full h-full bg-black">
-    <section class="flex h-60vh! flex-col" ref="videoColumn">
-      <PearVideoPlayer videoClass="max-h-[calc(100vh-5rem)]!" />
-    </section>
-    <PearVideoChat class="min-w-60 max-w-90 h-full w-max flex-grow-1" />
+  <section
+    class="flex flex-col justify-center w-full h-full bg-black md:(flex-row)"
+  >
+    <PearVideoPlayer videoClass="" />
+    <PearVideoChat class="h-full w-max! max-w-90 flex-grow-1 md:(w-full)" />
   </section>
 </template>
